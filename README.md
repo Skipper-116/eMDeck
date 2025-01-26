@@ -50,59 +50,15 @@ git clone https://github.com/your-org/emdeck.git
 cd emdeck
 ```
 
-### 2. Configure the Environment
-
-Edit the `.env` file to match your deployment needs:
-
-#### Example `.env` File
-
-```ini
-# Enable/Disable Services
-ENABLE_EMR_API=true
-ENABLE_DDE=true
-ENABLE_FRONTEND=false
-ENABLE_MYSQL=true
-ENABLE_REDIS=true
-ENABLE_NGINX=true
-
-# Docker Network Name
-DOCKER_NETWORK=emastercard-network
-
-# GitHub Repositories
-EMR_API_REPO=https://github.com/HIS-Malawi/emr-api.git
-DDE_REPO=https://github.com/HIS-Malawi/dde.git
-FRONTEND_REPO=https://github.com/HIS-Malawi/emastercard-frontend.git
-
-# MySQL Configuration (Shared)
-MYSQL_ROOT_PASSWORD=root_password
-
-# EMR Database Configuration
-EMR_DATABASE=emr_db
-EMR_DB_USER=emr_user
-EMR_DB_PASSWORD=emr_password
-
-# DDE Database Configuration
-DDE_DATABASE=dde_db
-DDE_DB_USER=dde_user
-DDE_DB_PASSWORD=dde_password
-
-# Backend API Configuration
-EMR_API_IMAGE_TAG=latest
-DDE_IMAGE_TAG=latest
-
-# Frontend Configuration
-FRONTEND_IMAGE_TAG=latest
-```
-
-### 3. Deploy the System
+### 2. Deploy the System
 
 Run the Python deployment script:
 
 ```bash
-python3 deployment.py
+python3 main.py
 ```
 
-### 4. Post-Deployment Tasks
+### 3. Post-Deployment Tasks
 
 - Use the included bash scripts in the `scripts/` directory to manage databases, run migrations, and perform backups/restores:
   ```bash
@@ -121,6 +77,7 @@ Place custom configuration files (e.g., `database.yml`, `ait.yml`) in the respec
 
 - **DDE Configurations**: `docker/dde/config/`
 - **EMR-API Configurations**: `docker/emr-api/config/`
+- **EMR-Frontend Configurations**: `docker/frontend/config/`
 
 #### Rules:
 
@@ -130,18 +87,35 @@ Place custom configuration files (e.g., `database.yml`, `ait.yml`) in the respec
 ### Example Directory Structure:
 
 ```
-project-root/
+eMDeck/
+├── config/
+│   ├── emdeck.conf
+├── deployment.py
 ├── docker/
-│   ├── dde/
-│   │   ├── config/
-│   │   │   ├── database.yml
-│   │   │   ├── ait.yml
-│   │   │   └── database.yml.example
+│   ├── docker-compose.yml
+│   ├── mysql/
+│   │   ├── init.sql
 │   ├── emr-api/
+│   │   ├── Dockerfile
 │   │   ├── config/
-│   │   │   ├── database.yml
-│   │   │   ├── ait.yml
-│   │   │   └── database.yml.example
+│   │   │   ├── database.yml.example
+│   │   │   ├── ait.yml.example
+│   ├── dde/
+│   │   ├── Dockerfile
+│   │   ├── config/
+│   │   │   ├── database.yml.example
+│   │   │   ├── ait.yml.example
+│   ├── nginx/
+│   │   ├── Dockerfile
+│   │   ├── default.conf
+│   ├── frontend/
+│   │   ├── Dockerfile
+├── scripts/
+│   ├── backup.sh
+│   ├── restore.sh
+│   ├── migrate.sh
+├── .gitignore
+├── README.md
 ```
 
 ---
@@ -183,7 +157,7 @@ The deployment uses Docker Compose to manage services. Adjustments can be made i
 
    - Update to the latest GitHub tags by running the deployment script:
      ```bash
-     python3 deployment.py
+     python3 main.py
      ```
 
 3. **Offline Deployment**:
