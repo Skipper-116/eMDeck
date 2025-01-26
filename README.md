@@ -1,12 +1,12 @@
 # eMDeck
 
-## **eMDeck** is a highly configurable deployment tool designed for the **eMastercard system**, enabling seamless setup and management of healthcare-related software components. This tool is built with Python and Docker, ensuring flexibility, scalability, and reliability for offline and online deployments.
+**eMDeck** is a highly configurable deployment tool designed for the **eMastercard system**, enabling seamless setup and management of healthcare-related software components. This tool is built with Python and Docker, ensuring flexibility, scalability, and reliability for offline and online deployments.
 
 ## Features
 
 1. **Highly Configurable Deployment**:
 
-   - Manage services (e.g., EMR-API, DDE, Frontend) via a centralized `.env` file.
+   - Manage services (e.g., EMR-API, DDE, Frontend) via a centralized `config/emdec.conf` file.
    - Enable or disable specific services during deployment.
 
 2. **Seamless Database Integration**:
