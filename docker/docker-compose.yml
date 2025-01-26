@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - emdeck-network
+
+  emr-api:
+    build:
+      context: ./docker/emr-api
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: ${EMR_DB}
+      DB_USER: ${EMR_DB_USER}
+      DB_PASSWORD: ${EMR_DB_PASSWORD}
+    depends_on:
+      - mysql
+    networks:
+      - emdeck-network
+
+  dde:
+    build:
+      context: ./docker/dde
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: ${DDE_DB}
+      DB_USER: ${DDE_DB_USER}
+      DB_PASSWORD: ${DDE_DB_PASSWORD}
+    depends_on:
+      - mysql
+    networks:
+      - emdeck-network
+
+  frontend:
+    build:
+      context: ./docker/frontend
+    depends_on:
+      - emr-api
+    networks:
+      - emdeck-network
+
+  nginx:
+    build:
+      context: ./docker/nginx
+    depends_on:
+      - frontend
+    ports:
+      - "80:80"
+    networks:
+      - emdeck-network
+
+networks:
+  emdeck-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
