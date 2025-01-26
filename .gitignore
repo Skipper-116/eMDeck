@@ -1,0 +1,54 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+env/
+venv/
+
+# Environment variables
+.env
+*.env
+
+# Logs and debug output
+*.log
+logs/
+
+# Docker-related files
+docker/*.log
+docker/mysql/data/
+docker/mysql/*.sql
+docker/portainer-data/
+docker-compose.override.yml
+
+# Node modules (if any frontend dependencies are managed locally)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+*.old
+*.orig
+
+# Backup files
+*.sql.bak
+backup.sql
+
+# Ignore any local configurations
+docker/**/config/*.example
+docker/**/config/*.local
+docker/**/config/app-config/
+
+# Ignore generated artifacts
+dist/
+build/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
