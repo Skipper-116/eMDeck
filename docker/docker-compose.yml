@@ -55,6 +55,21 @@ services:
     networks:
       - emdeck-network
 
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      - ADMIN_USERNAME=${PORTAINER_ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${PORTAINER_ADMIN_PASSWORD}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+    networks:
+      - ${DOCKER_NETWORK}
+
 networks:
   emdeck-network:
     driver: bridge
