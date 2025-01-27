@@ -1,5 +1,5 @@
 # Use Ruby 3.2 as the base image
-FROM ruby:3.2
+FROM ruby:3.2.0
 
 RUN mkdir /opt/EMR-API
 # Set the working directory
@@ -11,6 +11,7 @@ RUN apt update && apt install -y \
     libmariadb-dev-compat libmariadb-dev \
     default-mysql-client default-libmysqlclient-dev pv
 
+COPY Gemfile /tmp/Gemfile
 COPY tmp/Gemfile /opt/EMR-API/Gemfile
 COPY tmp/vendor /opt/EMR-API/vendor
 
