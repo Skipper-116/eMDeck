@@ -9,6 +9,7 @@ class Deployment:
     def load_config(self):
         config = ConfigParser()
         config.read("./config/emdeck.conf")
+        config.read("./config/version.conf")
         return config
 
     def ensure_tmp_folder(self, service_path):
@@ -29,7 +30,7 @@ class Deployment:
             print(f"Error fetching tags for {repo_path}: {e}")
             exit(1)
         finally:
-            os.chdir("../../")
+            os.chdir("../../../")
 
 
     def clone_or_update_repo(self, service, repo, tag_format):

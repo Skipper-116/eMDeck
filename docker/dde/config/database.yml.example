@@ -13,14 +13,14 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: test
-  password: test
+  username: root
+  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { 'test' } %>
   socket: /var/run/mysqld/mysqld.sock
   idle_timeout: 1
 
 development:
   <<: *default
-  database: dde4
+  database: <%= ENV.fetch("DDE_DATABASE") { 'dde_development' } %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -52,9 +52,9 @@ production:
   <<: *default
   database: Demographics-Data-Exchange_production
   username: Demographics-Data-Exchange
-  password: <%= ENV['DEMOGRAPHICS-DATA-EXCHANGE_DATABASE_PASSWORD'] %>
+  password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
 
-:batch_size: 
+:batch_size:
   :batch: 10_000
 
 :dde_sync_config:
@@ -65,7 +65,7 @@ production:
 
 :email_config:
   :user_name: example@gmail.com
-  :password: password 
+  :password: password
   :address: smtp.gmail.com
   :port: 587
   :authentication: :login

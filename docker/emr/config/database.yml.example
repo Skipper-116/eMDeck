@@ -6,7 +6,7 @@ default: &default
   encoding: utf8
   collation: utf8_unicode_ci
   username: your_scoped_username
-  password: your_secret_password
+  password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 20 } %>
   checkout_timeout: 5000
   variables:
@@ -14,7 +14,7 @@ default: &default
 
 development:
   <<: *default
-  database: openmrs_dev
+  database: <%= ENV.fetch("EMR_DATABASE") { 'openmrs_dev' } %>
 
 test:
   <<: *default
@@ -50,7 +50,6 @@ healthdata:
   password:
   host: localhost
   pool: 500
-
 # concepts_merge_db:
 #  adapter: mysql2
 #  username: root

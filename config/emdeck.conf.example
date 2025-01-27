@@ -14,36 +14,22 @@ ENABLE_PORTAINER=true
 DOCKER_NETWORK=emastercard-network
 
 # GitHub Repositories
-EMR_API_REPO=https://github.com/HISMalawi/BHT-EMR.git
-DDE_REPO=https://github.com/HISMalawi/Demographics-Data-Exchange.git
-FRONTEND_REPO=https://github.com/EGPAFMalawiHIS/emc-new-arch.git
+EMR_API_REPO=git@github.com:HISMalawi/BHT-EMR-API.git
+DDE_REPO=git@github.com:HISMalawi/Demographics-Data-Exchange.git
+FRONTEND_REPO=git@github.com:EGPAFMalawiHIS/emc-new-arch.git
+
+# RAILS Configuration
+RAILS_MAX_THREADS=5
 
 # MySQL Configuration (Shared)
 MYSQL_ROOT_PASSWORD=root_password
 
 # EMR Database Configuration
 EMR_DATABASE=emr_db
-EMR_DB_USER=emr_user
-EMR_DB_PASSWORD=emr_password
-EMR_TAG=v5.3.1
 
 # DDE Database Configuration
 DDE_DATABASE=dde_db
-DDE_DB_USER=dde_user
-DDE_DB_PASSWORD=dde_password
-DDE_TAG=v4.1.3
-
-# Backend API Configuration
-EMR_API_IMAGE_TAG=latest
-DDE_IMAGE_TAG=latest
-
-# Frontend Configuration
-FRONTEND_IMAGE_TAG=latest
-FRONTEND_TAG=v2024.Q4.R2
 
 # Portainer Admin Credentials
 PORTAINER_ADMIN_USERNAME=admin
 PORTAINER_ADMIN_PASSWORD=admin123
-
-# EM DECK Tag
-TAG=v1.0.0
