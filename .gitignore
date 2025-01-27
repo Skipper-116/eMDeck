@@ -53,6 +53,7 @@ setup_project.sh
 *.yml
 *.msi
 *.conf
+!version.conf
 
 # Ignore git clone folders
 tmp/

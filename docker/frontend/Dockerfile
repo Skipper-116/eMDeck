@@ -1,25 +1,27 @@
 # Stage 1: Build the Ionic Vue application
 FROM node:20 AS builder
 
+RUN mkdir /opt/EMC
 # Set the working directory
-WORKDIR /app
+WORKDIR /opt/EMC
 
 # Copy the application code from the tmp folder
 COPY ./tmp/ .
 
 # Copy configuration files (excluding *.example files)
 COPY ./config/ /app/config/
-RUN find /app/config/ -type f -name "*.example" -delete
 
 # Install dependencies and build the application
-RUN npm install
-RUN npm run build
+RUN npm install --legacy-peer-deps
+RUN npm install -g @ionic/cli@latest
+RUN npm install -g @vue/cli@latest
+RUN ionic build
 
 # Stage 2: Serve the built application using Nginx
 FROM nginx:stable
 
 # Copy built files from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /opt/EMC/dist /usr/share/nginx/html
 
 # Expose the Nginx port
 EXPOSE 80

@@ -1,27 +1,29 @@
 # Use Ruby 3.2 as the base image
 FROM ruby:3.2
 
+RUN mkdir /opt/DDE
 # Set the working directory
-WORKDIR /app
+WORKDIR /opt/DDE
 
 # Install required system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
     build-essential \
-    libmysqlclient-dev \
-    && rm -rf /var/lib/apt/lists/*
+    libmariadb-dev-compat libmariadb-dev \
+    default-mysql-client default-libmysqlclient-dev pv
+
+COPY tmp/Gemfile /opt/DDE/Gemfile
+COPY tmp/vendor /opt/DDE/vendor
+
+RUN bundle install --local
 
 # Copy the application code from the tmp folder
-COPY ./tmp/ .
+COPY ./tmp/ /opt/DDE
 
 # Copy configuration files (excluding *.example files)
-COPY ./config/ /app/config/
-RUN find /app/config/ -type f -name "*.example" -delete
-
-# Install Ruby dependencies
-RUN bundle install
+COPY ./config/ /opt/DDE/config/
 
 # Precompile assets (if applicable)
-RUN bundle exec rake assets:precompile
+# RUN bundle exec rake assets:precompile
 
 # Expose the Rails server port
 EXPOSE 3001
