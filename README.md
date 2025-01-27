@@ -6,12 +6,12 @@
 
 1. **Highly Configurable Deployment**:
 
-   - Manage services (e.g., EMR-API, DDE, Frontend) via a centralized `config/emdec.conf` file.
+   - Manage services (e.g., EMR, DDE, Frontend) via a centralized `config/emdec.conf` file.
    - Enable or disable specific services during deployment.
 
 2. **Seamless Database Integration**:
 
-   - Supports separate MySQL databases for DDE and EMR-API.
+   - Supports separate MySQL databases for DDE and EMR.
    - Automatic initialization of databases and users.
 
 3. **Docker-Powered Architecture**:
@@ -20,7 +20,7 @@
 
 4. **Configuration Management**:
 
-   - Supports copying custom configurations (`database.yml`, `ait.yml`, etc.) for DDE and EMR-API.
+   - Supports copying custom configurations (`database.yml`, `ait.yml`, etc.) for DDE and EMR.
    - Automatically excludes `*.example` files to prevent accidental overwrites.
 
 5. **Bash Utility Scripts**:
@@ -71,12 +71,12 @@ python3 main.py
 
 ## Managing Configurations
 
-### DDE and EMR-API Configurations
+### DDE and EMR Configurations
 
 Place custom configuration files (e.g., `database.yml`, `ait.yml`) in the respective `config/` directories:
 
 - **DDE Configurations**: `docker/dde/config/`
-- **EMR-API Configurations**: `docker/emr-api/config/`
+- **EMR Configurations**: `docker/emr/config/`
 - **EMR-Frontend Configurations**: `docker/frontend/config/`
 
 #### Rules:
@@ -95,7 +95,7 @@ eMDeck/
 │   ├── docker-compose.yml
 │   ├── mysql/
 │   │   ├── init.sql
-│   ├── emr-api/
+│   ├── emr/
 │   │   ├── Dockerfile
 │   │   ├── config/
 │   │   │   ├── database.yml.example

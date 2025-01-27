@@ -48,3 +48,10 @@ build/
 .DS_Store
 Thumbs.db
 setup_project.sh
+
+# Ignore configuration files
+*.yml
+*.msi
+
+# Ignore git clone folders
+tmp/

@@ -11,9 +11,9 @@ services:
     networks:
       - emdeck-network
 
-  emr-api:
+  emr:
     build:
-      context: ./docker/emr-api
+      context: ./docker/emr
     environment:
       DB_HOST: mysql
       DB_DATABASE: ${EMR_DB}
@@ -41,7 +41,7 @@ services:
     build:
       context: ./docker/frontend
     depends_on:
-      - emr-api
+      - emr
     networks:
       - emdeck-network
 
