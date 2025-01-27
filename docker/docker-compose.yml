@@ -11,6 +11,8 @@ services:
       DDE_DATABASE: ${DDE_DATABASE}
       DDE_DB_USER: ${DDE_DATABASE_USER}
       DDE_DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
+    ports:
+      - "3306:8085"
     volumes:
       - mysql-data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -20,33 +22,41 @@ services:
   emr:
     build:
       context: ./emr
-    container_name: emr
+    container_name: emr-api
     environment:
       DB_HOST: mysql
       DB_DATABASE: ${EMR_DATABASE}
       DB_USER: ${EMR_DATABASE_USER}
       DB_PASSWORD: ${EMR_DATABASE_PASSWORD}
+    ports:
+      - "3000:8081"
     depends_on:
       - mysql
     networks:
       - emdeck-network
 
-  # dde:
-  #   build:
-  #     context: ./dde
-  #   environment:
-  #     DB_HOST: mysql
-  #     DB_DATABASE: ${DDE_DATABASE}
-  #     DB_USER: ${DDE_DATABASE_USER}
-  #     DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
-  #   depends_on:
-  #     - mysql
-  #   networks:
-  #     - emdeck-network
+  dde:
+    build:
+      context: ./dde
+    container_name: dde-api
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: ${DDE_DATABASE}
+      DB_USER: ${DDE_DATABASE_USER}
+      DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
+    ports:
+      - "3001:8082"
+    depends_on:
+      - mysql
+    networks:
+      - emdeck-network
 
   frontend:
     build:
       context: ./frontend
+    container_name: emc
+    ports:
+      - "80:8080"
     depends_on:
       - emr
     networks:
@@ -57,7 +67,7 @@ services:
     container_name: portainer
     restart: always
     ports:
-      - "9000:9000"
+      - "9000:8083"
     environment:
       - ADMIN_USERNAME=${PORTAINER_ADMIN_USERNAME}
       - ADMIN_PASSWORD=${PORTAINER_ADMIN_PASSWORD}
@@ -70,7 +80,7 @@ services:
   redis:
     image: redis:7.0
     ports:
-      - "6379:6379"
+      - "6379:8084"
     restart: always
     container_name: redis
     volumes:
