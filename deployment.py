@@ -41,16 +41,23 @@ class Deployment:
         finally:
             os.chdir("../../")
 
+    def get_current_tag(self, repo_path):
+        """Gets the currently checked out tag in the repository."""
+        try:
+            os.chdir(repo_path)
+            current_tag = subprocess.check_output(["git", "describe", "--tags"], stderr=subprocess.DEVNULL).decode("utf-8").strip()
+            return current_tag
+        except Exception:
+            return None
+        finally:
+            os.chdir("../../")
+
     def checkout_tag(self, repo_path, tag):
         """Checks out the specified tag in an existing repository."""
         try:
             os.chdir(repo_path)
-            current_tag = subprocess.check_output(["git", "describe", "--tags"], stderr=subprocess.DEVNULL).decode("utf-8").strip()
-            if current_tag == tag:
-                print(f"Repository at {repo_path} is already on tag {tag}. Skipping checkout.")
-            else:
-                print(f"Checking out tag {tag} for repository at {repo_path}...")
-                subprocess.run(["git", "checkout", tag], check=True)
+            print(f"Checking out tag {tag} for repository at {repo_path}...")
+            subprocess.run(["git", "checkout", tag], check=True)
         except Exception as e:
             print(f"Error during checkout: {e}")
         finally:
@@ -62,9 +69,14 @@ class Deployment:
         tmp_path = self.ensure_tmp_folder(service_path)
 
         if os.path.exists(service_path):
-            print(f"Repository for {service} already exists. Fetching latest tags...")
+            print(f"Repository for {service} already exists. Checking the current tag...")
             latest_tag = self.get_latest_tag(service_path, tag_format)
-            if latest_tag:
+            current_tag = self.get_current_tag(service_path)
+
+            if latest_tag == current_tag:
+                print(f"{service} is already on the latest tag {latest_tag}. Skipping fetch and checkout.")
+            else:
+                print(f"Updating {service} to the latest tag {latest_tag}...")
                 self.checkout_tag(service_path, latest_tag)
         else:
             print(f"Cloning {service} repository...")
