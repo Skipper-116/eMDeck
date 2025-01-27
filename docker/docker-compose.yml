@@ -83,3 +83,5 @@ networks:
 
 volumes:
   mysql-data:
+  portainer-data:
+  redis-data:
