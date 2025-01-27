@@ -5,12 +5,19 @@ from configparser import ConfigParser
 class Deployment:
     def __init__(self):
         self.config = self.load_config()
+        self.config_to_env()
 
     def load_config(self):
         config = ConfigParser()
         config.read("./config/emdeck.conf")
         config.read("./config/version.conf")
         return config
+
+    def config_to_env(self):
+        """Sets the configuration values as environment variables."""
+        for section in self.config.sections():
+            for key, value in self.config.items(section):
+                os.environ[key] = value
 
     def ensure_tmp_folder(self, service_path):
         """Ensures the tmp folder exists in the service path."""
