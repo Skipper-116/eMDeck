@@ -15,9 +15,11 @@ class Deployment:
 
     def config_to_env(self):
         """Sets the configuration values as environment variables."""
-        for section in self.config.sections():
-            for key, value in self.config.items(section):
-                os.environ[key] = value
+        # we should set the environment variables here in the default section of the config
+        for key, value in self.config.items("DEFAULT"):
+            os.environ[key.upper()] = value
+        print("Configuration loaded successfully!")
+        print(f"EMR_API_REPO: {os.environ['EMR_API_REPO']}")
 
     def ensure_tmp_folder(self, service_path):
         """Ensures the tmp folder exists in the service path."""
