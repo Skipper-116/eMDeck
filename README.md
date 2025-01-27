@@ -46,7 +46,7 @@
 
 ```bash
 # Clone this repository
-git clone https://github.com/your-org/emdeck.git
+git clone https://github.com/Skipper-116/eMDeck.git.git
 cd emdeck
 ```
 
@@ -157,7 +157,7 @@ The deployment uses Docker Compose to manage services. Adjustments can be made i
 
    - Update to the latest GitHub tags by running the deployment script:
      ```bash
-     python3 main.py
+     ./scripts/start.sh
      ```
 
 3. **Offline Deployment**:
@@ -167,4 +167,4 @@ The deployment uses Docker Compose to manage services. Adjustments can be made i
 
 ## Contributing
 
-This project is open for contributions from the **HIS-Malawi** team and the broader healthcare community. Submit issues or pull requests via the [GitHub repository](https://github.com/your-org/emdeck).
+This project is open for contributions from the **HIS-Malawi** team and the broader healthcare community. Submit issues or pull requests via the [GitHub repository](https://github.com/Skipper-116/eMDeck.git).
