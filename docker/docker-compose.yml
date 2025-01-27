@@ -5,6 +5,7 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_HOST: "%"
       EMR_DATABASE: ${EMR_DATABASE}
       EMR_DB_USER: ${EMR_DATABASE_USER}
       EMR_DB_PASSWORD: ${EMR_DATABASE_PASSWORD}
@@ -12,7 +13,7 @@ services:
       DDE_DB_USER: ${DDE_DATABASE_USER}
       DDE_DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
     ports:
-      - "3306:8085"
+      - "8085:3306"
     volumes:
       - mysql-data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -29,7 +30,7 @@ services:
       DB_USER: ${EMR_DATABASE_USER}
       DB_PASSWORD: ${EMR_DATABASE_PASSWORD}
     ports:
-      - "3000:8081"
+      - "8081:3000"
     depends_on:
       - mysql
     networks:
@@ -45,7 +46,7 @@ services:
       DB_USER: ${DDE_DATABASE_USER}
       DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
     ports:
-      - "3001:8082"
+      - "8082:3001"
     depends_on:
       - mysql
     networks:
@@ -56,7 +57,7 @@ services:
       context: ./frontend
     container_name: emc
     ports:
-      - "80:8080"
+      - "8080:80"
     depends_on:
       - emr
     networks:
@@ -67,7 +68,7 @@ services:
     container_name: portainer
     restart: always
     ports:
-      - "9000:8083"
+      - "8083:9000"
     environment:
       - ADMIN_USERNAME=${PORTAINER_ADMIN_USERNAME}
       - ADMIN_PASSWORD=${PORTAINER_ADMIN_PASSWORD}
@@ -80,7 +81,7 @@ services:
   redis:
     image: redis:7.0
     ports:
-      - "6379:8084"
+      - "8084:6379"
     restart: always
     container_name: redis
     volumes:

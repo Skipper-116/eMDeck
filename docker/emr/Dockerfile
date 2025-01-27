@@ -11,14 +11,29 @@ RUN apt update && apt install -y \
     libmariadb-dev-compat libmariadb-dev \
     default-mysql-client default-libmysqlclient-dev pv
 
-COPY Gemfile /tmp/Gemfile
-COPY tmp/Gemfile /opt/EMR-API/Gemfile
-COPY tmp/vendor /opt/EMR-API/vendor
+# Copy the Gemfile from the host into the container
+COPY ./tmp/Gemfile /opt/EMR-API/Gemfile
 
 RUN bundle install
 
 # Copy the application code from the tmp folder
-COPY ./tmp/ /opt/EMR-API
+COPY ./tmp/app /opt/EMR-API/app
+COPY ./tmp/bin /opt/EMR-API/bin
+COPY ./tmp/config /opt/EMR-API/config
+COPY ./tmp/db /opt/EMR-API/db
+COPY ./tmp/doc /opt/EMR-API/doc
+COPY ./tmp/lib /opt/EMR-API/lib
+COPY ./tmp/log /opt/EMR-API/log
+COPY ./tmp/public /opt/EMR-API/public
+COPY ./tmp/spec /opt/EMR-API/spec
+COPY ./tmp/storage /opt/EMR-API/storage
+COPY ./tmp/tmp /opt/EMR-API/tmp
+COPY ./tmp/.rspec /opt/EMR-API/.rspec
+COPY ./tmp/config.ru /opt/EMR-API/config.ru
+COPY ./tmp/Rakefile /opt/EMR-API/Rakefile
+# Remove this line once the active_support gem is updated to
+COPY ./logger_thread_safe_level.rb /usr/local/bundle/gems/activesupport-7.0.8.7/lib/active_support/logger_thread_safe_level.rb
+
 
 # Copy configuration files (excluding *.example files)
 COPY ./config/ /opt/EMR-API/config/
