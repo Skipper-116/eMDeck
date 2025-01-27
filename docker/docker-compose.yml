@@ -22,9 +22,9 @@ services:
       context: ./emr
     environment:
       DB_HOST: mysql
-      DB_DATABASE: ${EMR_DB}
-      DB_USER: ${EMR_DB_USER}
-      DB_PASSWORD: ${EMR_DB_PASSWORD}
+      DB_DATABASE: ${EMR_DATABASE}
+      DB_USER: ${EMR_DATABASE_USER}
+      DB_PASSWORD: ${EMR_DATABASE_PASSWORD}
     depends_on:
       - mysql
     networks:
@@ -35,9 +35,9 @@ services:
       context: ./dde
     environment:
       DB_HOST: mysql
-      DB_DATABASE: ${DDE_DB}
-      DB_USER: ${DDE_DB_USER}
-      DB_PASSWORD: ${DDE_DB_PASSWORD}
+      DB_DATABASE: ${DDE_DATABASE}
+      DB_USER: ${DDE_DATABASE_USER}
+      DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
     depends_on:
       - mysql
     networks:
