@@ -52,6 +52,7 @@ setup_project.sh
 # Ignore configuration files
 *.yml
 *.msi
+*.conf
 
 # Ignore git clone folders
 tmp/
