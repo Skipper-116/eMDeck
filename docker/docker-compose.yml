@@ -19,7 +19,7 @@ services:
 
   emr:
     build:
-      context: ./docker/emr
+      context: ./emr
     environment:
       DB_HOST: mysql
       DB_DATABASE: ${EMR_DB}
@@ -32,7 +32,7 @@ services:
 
   dde:
     build:
-      context: ./docker/dde
+      context: ./dde
     environment:
       DB_HOST: mysql
       DB_DATABASE: ${DDE_DB}
@@ -45,7 +45,7 @@ services:
 
   frontend:
     build:
-      context: ./docker/frontend
+      context: ./frontend
     depends_on:
       - emr
     networks:
