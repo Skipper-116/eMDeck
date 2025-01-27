@@ -45,16 +45,6 @@ services:
     networks:
       - emdeck-network
 
-  nginx:
-    build:
-      context: ./docker/nginx
-    depends_on:
-      - frontend
-    ports:
-      - "80:80"
-    networks:
-      - emdeck-network
-
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
@@ -69,6 +59,17 @@ services:
       - portainer-data:/data
     networks:
       - ${DOCKER_NETWORK}
+
+  redis:
+    image: redis:7.0
+    ports:
+      - "6379:6379"
+    restart: always
+    container_name: redis
+    volumes:
+      - redis-data:/data
+    networks:
+      - emdeck-network
 
 networks:
   emdeck-network:
