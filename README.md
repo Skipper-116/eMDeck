@@ -46,7 +46,7 @@
 
 ```bash
 # Clone this repository
-git clone https://github.com/Skipper-116/eMDeck.git.git
+git clone https://github.com/Skipper-116/eMDeck.git
 cd emdeck
 ```
 
