@@ -5,6 +5,12 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      EMR_DATABASE: ${EMR_DATABASE}
+      EMR_DB_USER: ${EMR_DATABASE_USER}
+      EMR_DB_PASSWORD: ${EMR_DATABASE_PASSWORD}
+      DDE_DATABASE: ${DDE_DATABASE}
+      DDE_DB_USER: ${DDE_DATABASE_USER}
+      DDE_DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
     volumes:
       - mysql-data:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql

@@ -26,9 +26,13 @@ MYSQL_ROOT_PASSWORD=root_password
 
 # EMR Database Configuration
 EMR_DATABASE=emr_db
+EMR_DATABASE_USER=emr_user
+EMR_DATABASE_PASSWORD=emr_password
 
 # DDE Database Configuration
 DDE_DATABASE=dde_db
+DDE_DATABASE_USER=dde_user
+DDE_DATABASE_PASSWORD=dde_password
 
 # Portainer Admin Credentials
 PORTAINER_ADMIN_USERNAME=admin
