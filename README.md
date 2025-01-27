@@ -55,7 +55,7 @@ cd emdeck
 Run the Python deployment script:
 
 ```bash
-python3 main.py
+./scripts/start.sh
 ```
 
 ### 3. Post-Deployment Tasks
