@@ -1,0 +1,5 @@
+dde4_sync:
+  cron: "*/5 * * * *"
+  class: "SyncJob"
+  queue: "sync"
+  description: "Synchronizes data demographics and NPIDs with DDE master"
