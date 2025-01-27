@@ -20,6 +20,7 @@ services:
   emr:
     build:
       context: ./emr
+    container_name: emr
     environment:
       DB_HOST: mysql
       DB_DATABASE: ${EMR_DATABASE}
@@ -30,18 +31,18 @@ services:
     networks:
       - emdeck-network
 
-  dde:
-    build:
-      context: ./dde
-    environment:
-      DB_HOST: mysql
-      DB_DATABASE: ${DDE_DATABASE}
-      DB_USER: ${DDE_DATABASE_USER}
-      DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
-    depends_on:
-      - mysql
-    networks:
-      - emdeck-network
+  # dde:
+  #   build:
+  #     context: ./dde
+  #   environment:
+  #     DB_HOST: mysql
+  #     DB_DATABASE: ${DDE_DATABASE}
+  #     DB_USER: ${DDE_DATABASE_USER}
+  #     DB_PASSWORD: ${DDE_DATABASE_PASSWORD}
+  #   depends_on:
+  #     - mysql
+  #   networks:
+  #     - emdeck-network
 
   frontend:
     build:
@@ -64,7 +65,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-data:/data
     networks:
-      - ${DOCKER_NETWORK}
+      - emdeck-network
 
   redis:
     image: redis:7.0
