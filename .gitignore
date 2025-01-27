@@ -40,11 +40,6 @@ yarn-error.log*
 *.sql.bak
 backup.sql
 
-# Ignore any local configurations
-docker/**/config/*.example
-docker/**/config/*.local
-docker/**/config/app-config/
-
 # Ignore generated artifacts
 dist/
 build/
