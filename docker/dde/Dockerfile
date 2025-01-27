@@ -2,6 +2,10 @@
 FROM ruby:3.2.0
 
 RUN mkdir /opt/DDE
+RUN mkdir /opt/DDE/log
+RUN touch /opt/DDE/log/development.log
+RUN touch /opt/DDE/log/test.log
+RUN touch /opt/DDE/log/production.log
 # Set the working directory
 WORKDIR /opt/DDE
 
@@ -12,12 +16,26 @@ RUN apt update && apt install -y \
     default-mysql-client default-libmysqlclient-dev pv
 
 COPY tmp/Gemfile /opt/DDE/Gemfile
-COPY tmp/vendor /opt/DDE/vendor
 
 RUN bundle install
 
 # Copy the application code from the tmp folder
-COPY ./tmp/ /opt/DDE
+COPY ./tmp/app /opt/DDE/app
+COPY ./tmp/bin /opt/DDE/bin
+COPY ./tmp/config /opt/DDE/config
+COPY ./tmp/db /opt/DDE/db
+COPY ./tmp/lib /opt/DDE/lib
+COPY ./tmp/public /opt/DDE/public
+COPY ./tmp/spec /opt/DDE/spec
+COPY ./tmp/swagger /opt/DDE/swagger
+COPY ./tmp/storage /opt/DDE/storage
+COPY ./tmp/tmp /opt/DDE/tmp
+COPY ./tmp/test /opt/DDE/test
+COPY ./tmp/config.ru /opt/DDE/config.ru
+COPY ./tmp/Rakefile /opt/DDE/Rakefile
+# Remove this line once the active_support gem is updated to
+COPY ./logger_thread_safe_level.rb /usr/local/bundle/gems/activesupport-7.0.8.7/lib/active_support/logger_thread_safe_level.rb
+
 
 # Copy configuration files (excluding *.example files)
 COPY ./config/ /opt/DDE/config/
