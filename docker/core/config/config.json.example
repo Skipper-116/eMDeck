@@ -1,0 +1,45 @@
+{
+	"apiURL": "127.0.0.1",
+	"apiPort": "8081",
+	"apiProtocol": "http",
+	"appConf": {
+		"devMode": true,
+		"enableVersionLocking": true,
+		"promptFullScreenDialog": false,
+		"showUpdateNotifications": true,
+		"dataCaching": true
+	},
+	"apps": [
+		{ "name": "TB", "available": true },
+		{ "name": "EMC", "available": true },
+		{ "name": "ART", "available": true },
+		{ "name": "LOS", "available": true },
+		{ "name": "OPD", "available": true },
+		{ "name": "ANC", "available": true },
+		{ "name": "CxCa", "available": true },
+		{ "name": "SPINE", "available": true },
+		{ "name": "AETC", "available": true },
+		{ "name": "RADIOLOGY", "available": true },
+		{ "name": "CRVS", "available": true },
+		{ "name": "Registration", "available": true}
+	],
+	"otherApps": [
+		{ "name": "Test App", "IP": "127.0.0.1", "port": "8080", "protocol": "http"}
+	],
+	"platformProfiles":  {
+		"Desktop": {
+			"profileName": "Desktop",
+			"fileExport": "WEB",
+			"scanner": "BARCODE_SCANNER",
+			"printer": "WEB",
+			"keyboard": "NATIVE_AND_HIS_KEYBOARD"
+		},
+		"Mobile" : {
+			"profileName": "Mobile",
+			"fileExport": "FILE_SYSTEM",
+			"scanner": "CAMERA_SCANNER",
+			"printer": "BLUETOOTH",
+			"keyboard": "HIS_KEYBOARD_ONLY"
+		}
+	}
+}
