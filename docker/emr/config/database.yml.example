@@ -1,20 +1,20 @@
 # Mysql configurations
 default: &default
-  host: 127.0.0.1
-  port: 3308
   adapter: mysql2
+  host: <%= ENV.fetch("DB_HOST") { 'mysql' } %>
+  port: <%= ENV.fetch("DB_PORT") { 3306 } %>
   encoding: utf8
   collation: utf8_unicode_ci
-  username: your_scoped_username
-  password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 20 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { 'root_password' } %>
   checkout_timeout: 5000
   variables:
     sql_mode: STRICT_TRANS_TABLES
 
 development:
   <<: *default
-  database: <%= ENV.fetch("EMR_DATABASE") { 'openmrs_dev' } %>
+  database: openmrs_dev
 
 test:
   <<: *default

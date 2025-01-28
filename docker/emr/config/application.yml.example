@@ -36,7 +36,7 @@ pacs_viewer:
 
 # Configuration for DDE
 dde:
-  url: http://localhost:8050
+  url: 'http:<%= ENV.fecth('DDE_HOST'){'dde'} %>:<%= ENV.fetch('DDE_PORT') {3001}%>'
 
   # This section has DDE username and password for various applications.
   # The application's name must be the same as a program name in the
