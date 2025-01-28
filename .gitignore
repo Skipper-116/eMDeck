@@ -57,3 +57,5 @@ setup_project.sh
 
 # Ignore git clone folders
 tmp/
+bin/
+config.json

@@ -11,16 +11,19 @@
 #
 default: &default
   adapter: mysql2
+  host: <%= ENV.fetch("DB_HOST") { 'mysql' } %>
+  port: <%= ENV.fetch("DB_PORT") { 3306 } %>
   encoding: utf8
+  collation: utf8_unicode_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { 'test' } %>
+  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { 'root_password' } %>
   socket: /var/run/mysqld/mysqld.sock
   idle_timeout: 1
 
 development:
   <<: *default
-  database: <%= ENV.fetch("DDE_DATABASE") { 'dde_development' } %>
+  database: dde_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -51,8 +54,6 @@ test:
 production:
   <<: *default
   database: Demographics-Data-Exchange_production
-  username: Demographics-Data-Exchange
-  password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
 
 :batch_size:
   :batch: 10_000
