@@ -59,7 +59,8 @@ class Deployment:
         repos = [
             ("emr", self.config.get("DEFAULT", "EMR_API_REPO"), "semantic"),
             ("dde", self.config.get("DEFAULT", "DDE_REPO"), "semantic"),
-            ("frontend", self.config.get("DEFAULT", "FRONTEND_REPO"), "quarterly"),
+            ("emc", self.config.get("DEFAULT", "EMC_REPO"), "quarterly"),
+            ('core', self.config.get("DEFAULT", "CORE_REPO"), "quarterly"),
         ]
         for service, repo, tag_format in repos:
             self.clone_or_update_repo(service, repo, tag_format)

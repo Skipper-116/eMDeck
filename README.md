@@ -6,7 +6,7 @@
 
 1. **Highly Configurable Deployment**:
 
-   - Manage services (e.g., EMR, DDE, Frontend) via a centralized `config/emdec.conf` file.
+   - Manage services (e.g., EMR, DDE, Emc) via a centralized `config/emdec.conf` file.
    - Enable or disable specific services during deployment.
 
 2. **Seamless Database Integration**:
@@ -77,7 +77,7 @@ Place custom configuration files (e.g., `database.yml`, `ait.yml`) in the respec
 
 - **DDE Configurations**: `docker/dde/config/`
 - **EMR Configurations**: `docker/emr/config/`
-- **EMR-Frontend Configurations**: `docker/frontend/config/`
+- **EMR-Emc Configurations**: `docker/emc/config/`
 
 #### Rules:
 
@@ -108,7 +108,7 @@ eMDeck/
 │   ├── nginx/
 │   │   ├── Dockerfile
 │   │   ├── default.conf
-│   ├── frontend/
+│   ├── emc/
 │   │   ├── Dockerfile
 ├── scripts/
 │   ├── backup.sh
