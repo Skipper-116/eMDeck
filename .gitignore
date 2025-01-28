@@ -23,7 +23,7 @@ docker/mysql/*.sql
 docker/portainer-data/
 docker-compose.override.yml
 
-# Node modules (if any frontend dependencies are managed locally)
+# Node modules (if any emc dependencies are managed locally)
 node_modules/
 npm-debug.log*
 yarn-debug.log*

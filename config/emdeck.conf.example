@@ -1,7 +1,7 @@
 [DEFAULT]
 ENABLE_EMR_API=true
 ENABLE_DDE=true
-ENABLE_FRONTEND=false
+ENABLE_EMC=true
 ENABLE_MYSQL=true
 ENABLE_REDIS=true
 ENABLE_PORTAINER=true
@@ -10,7 +10,7 @@ ENABLE_CORE=true
 # GitHub Repositories
 EMR_API_REPO=https://www.github.com/HISMalawi/BHT-EMR-API.git
 DDE_REPO=https://www.github.com/HISMalawi/Demographics-Data-Exchange.git
-FRONTEND_REPO=https://www.github.com/EGPAFMalawiHIS/emc-new-arch.git
+EMC_REPO=https://www.github.com/EGPAFMalawiHIS/emc-new-arch.git
 CORE_REPO=https://www.github.com/HISMalawi/HIS-Core-release.git
 
 # RAILS Configuration

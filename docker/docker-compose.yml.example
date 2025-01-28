@@ -52,9 +52,9 @@ services:
     networks:
       - emdeck-network
 
-  frontend:
+  emc:
     build:
-      context: ./frontend
+      context: ./emc
     container_name: emc
     ports:
       - "8080:80"
