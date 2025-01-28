@@ -68,6 +68,7 @@ sed -i '' '/services:/q' ./docker/docker-compose.yml
 
 # Add the services to the docker-compose.yml
 echo "version: '3.8'" >./docker/docker-compose.yml
+echo "" >>./docker/docker-compose.yml
 echo "services:" >>./docker/docker-compose.yml
 
 # Toggle services based on the configuration
@@ -85,8 +86,9 @@ networks:
   emdeck-network:
     driver: bridge
 volumes:
-  mysql-data: null
-  redis-data: null
+  mysql-data:
+  redis-data:
+  portainer-data:
 EOF
 echo -e "${GREEN}Success:${NC} Configuration looks good."
-exit 1
+exit 0
