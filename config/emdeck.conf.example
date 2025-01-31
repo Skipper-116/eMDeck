@@ -24,8 +24,8 @@ ENABLE_CORE=true
 RAILS_MAX_THREADS=5
 
 # MySQL Configuration
-MYSQL_ROOT_PASSWORD=root_password
+MYSQL_ROOT_PASSWORD="root_password"
 
 # Portainer Admin Credentials
 PORTAINER_ADMIN_USERNAME=admin
-PORTAINER_ADMIN_PASSWORD=Extremely1Secure!
+PORTAINER_ADMIN_PASSWORD="Extremely1Secure!"

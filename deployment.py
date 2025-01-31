@@ -5,7 +5,6 @@ from configparser import ConfigParser
 class Deployment:
     def __init__(self):
         self.config = self.load_config()
-        self.config_to_env()
 
     def load_config(self):
         config = ConfigParser()
@@ -28,8 +27,15 @@ class Deployment:
     def get_tag(self, repo_path, tag):
         """Fetches the latest tag from the repository."""
         try:
-            print(f"Fetching tags for repository at {repo_path}...")
             os.chdir(repo_path)
+            # we need to get the results of the git describe command and compare it to the tag we want to checkout
+            # if the tag we want to checkout is in the list of tags, we can just checkout the tag
+            # if the tag we want to checkout is not in the list of tags, we need to fetch it
+            describe_output = subprocess.run(["git", "describe"], check=True, capture_output=True)
+            if tag in describe_output.stdout.decode("utf-8"):
+                print(f"Tag {tag} already checked out.")
+                return
+            print(f"Fetching tags for repository at {repo_path}...")
             subprocess.run(["git", "fetch", "--depth=1", "origin", "tag", tag], check=True)
             subprocess.run(["git", "checkout", tag], check=True)
             subprocess.run(["git", "describe", "--tags"], check=True)
@@ -46,9 +52,9 @@ class Deployment:
         tmp_path = self.ensure_tmp_folder(service_path)
         latest_tag = self.config.get("DEFAULT", f"{service.upper()}_TAG")
 
-        if os.path.exists(service_path + "tmp/.git"):
+        if os.path.exists(service_path + "/tmp/.git"):
             print(f"Repository for {service} already exists. Checking the current tag...")
-            self.get_tag(service_path + "tmp", latest_tag)
+            self.get_tag(service_path + "/tmp", latest_tag)
         else:
             print(f"Cloning {service} repository...")
             subprocess.run(["git", "clone", "--depth=1", "--single-branch", repo, tmp_path], check=True)

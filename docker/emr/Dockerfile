@@ -9,6 +9,7 @@ WORKDIR /opt/EMR-API
 RUN apt update && apt install -y \
     build-essential \
     libmariadb-dev-compat libmariadb-dev \
+    git \
     default-mysql-client default-libmysqlclient-dev pv
 
 # Copy the Gemfile from the host into the container
@@ -17,6 +18,7 @@ COPY ./tmp/Gemfile /opt/EMR-API/Gemfile
 RUN bundle install
 
 # Copy the application code from the tmp folder
+COPY ./tmp/.git /opt/EMR-API/.git
 COPY ./tmp/app /opt/EMR-API/app
 COPY ./tmp/bin /opt/EMR-API/bin
 COPY ./tmp/config /opt/EMR-API/config
@@ -27,6 +29,7 @@ COPY ./tmp/log /opt/EMR-API/log
 COPY ./tmp/public /opt/EMR-API/public
 COPY ./tmp/spec /opt/EMR-API/spec
 COPY ./tmp/storage /opt/EMR-API/storage
+COPY ./tmp/swagger /opt/EMR-API/swagger
 COPY ./tmp/tmp /opt/EMR-API/tmp
 COPY ./tmp/.rspec /opt/EMR-API/.rspec
 COPY ./tmp/config.ru /opt/EMR-API/config.ru
