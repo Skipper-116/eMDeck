@@ -86,9 +86,9 @@ networks:
   emdeck-network:
     driver: bridge
 volumes:
-  mysql-data:
-  redis-data:
-  portainer-data:
+  emdeck-mysql:
+  emdeck-redis:
+  emdeck-portainer:
 EOF
 echo -e "${GREEN}Success:${NC} Configuration looks good."
 exit 0
