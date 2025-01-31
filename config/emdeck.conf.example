@@ -7,11 +7,18 @@ ENABLE_REDIS=true
 ENABLE_PORTAINER=true
 ENABLE_CORE=true
 
-# GitHub Repositories
-EMR_API_REPO=https://www.github.com/HISMalawi/BHT-EMR-API.git
-DDE_REPO=https://www.github.com/HISMalawi/Demographics-Data-Exchange.git
-EMC_REPO=https://www.github.com/EGPAFMalawiHIS/emc-new-arch.git
-CORE_REPO=https://www.github.com/HISMalawi/HIS-Core-release.git
+# GitHub Repositories (HTTPS)
+# EMR_API_REPO=https://www.github.com/HISMalawi/BHT-EMR-API.git
+# DDE_REPO=https://www.github.com/HISMalawi/Demographics-Data-Exchange.git
+# EMC_REPO=https://www.github.com/EGPAFMalawiHIS/emc-new-arch.git
+# CORE_REPO=https://www.github.com/HISMalawi/HIS-Core-release.git
+
+# GitHub Repositories (SSH)
+# EMR_API_REPO=git@github.com:HISMalawi/BHT-EMR-API.git
+# DDE_REPO=git@github.com:HISMalawi/Demographics-Data-Exchange.git
+# EMC_REPO=git@github.com:EGPAFMalawiHIS/emc-new-arch.git
+# CORE_REPO=git@github.com:HISMalawi/HIS-Core-release.git
+
 
 # RAILS Configuration
 RAILS_MAX_THREADS=5
