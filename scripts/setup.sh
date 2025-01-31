@@ -63,6 +63,10 @@ if ! all_examples_have_target_files; then
     exit 1
 fi
 
+# we need to replace all files in docker folder that have the MYSQL_ROOT_PASSWORD placeholder with the actual password
+# we should void .example files
+find ./docker -type f -not -name "*.example" -exec sed -i '' "s/MYSQL_ROOT_PASSWORD/$MYSQL_ROOT_PASSWORD/g" {} +
+
 # lets delete the existing services from the docker-compose.yml
 sed -i '' '/services:/q' ./docker/docker-compose.yml
 

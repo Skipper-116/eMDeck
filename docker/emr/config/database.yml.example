@@ -1,13 +1,13 @@
 # Mysql configurations
 default: &default
   adapter: mysql2
-  host: <%= ENV.fetch("DB_HOST") { 'mysql' } %>
-  port: <%= ENV.fetch("DB_PORT") { 3306 } %>
+  host: mysql
+  port: 3306
   encoding: utf8
   collation: utf8_unicode_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { 'root_password' } %>
+  password: MYSQL_ROOT_PASSWORD
   checkout_timeout: 5000
   variables:
     sql_mode: STRICT_TRANS_TABLES

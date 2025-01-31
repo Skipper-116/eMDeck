@@ -11,14 +11,14 @@
 #
 default: &default
   adapter: mysql2
-  host: <%= ENV.fetch("DB_HOST") { 'mysql' } %>
-  port: <%= ENV.fetch("DB_PORT") { 3306 } %>
+  host: mysql
+  port: 3306
   encoding: utf8
   collation: utf8_unicode_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: <%= ENV.fetch("MYSQL_ROOT_PASSWORD") { 'root_password' } %>
-  socket: /var/run/mysqld/mysqld.sock
+  password: MYSQL_ROOT_PASSWORD
+  # socket: /var/run/mysqld/mysqld.sock
   idle_timeout: 1
 
 development:
