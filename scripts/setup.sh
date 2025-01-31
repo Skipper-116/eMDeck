@@ -159,13 +159,24 @@ fi
 
 # we need to replace all files in docker folder that have the MYSQL_ROOT_PASSWORD placeholder with the actual password
 # we should void .example files
-find ./docker -type f -not -name "*.example" -exec sed -i '' "s/MYSQL_ROOT_PASSWORD/$MYSQL_ROOT_PASSWORD/g" {} +
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS version
+    find ./docker -type f -not -name "*.example" -exec sed -i '' "s/MYSQL_ROOT_PASSWORD/$MYSQL_ROOT_PASSWORD/g" {} +
+else
+    # Ubuntu (and other Linux distributions) version
+    find ./docker -type f -not -name "*.example" -exec sed -i "s/MYSQL_ROOT_PASSWORD/$MYSQL_ROOT_PASSWORD/g" {} +
+fi
 
 # lets delete the existing services from the docker-compose.yml
-sed -i '' '/services:/q' ./docker/docker-compose.yml
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS version
+    sed -i '' '/services:/q' ./docker/docker-compose.yml
+else
+    # Ubuntu (and other Linux distributions) version
+    sed -i '/services:/q' ./docker/docker-compose.yml
+fi
 
 # Add the services to the docker-compose.yml
-echo "version: '3.8'" >./docker/docker-compose.yml
 echo "" >>./docker/docker-compose.yml
 echo "services:" >>./docker/docker-compose.yml
 
