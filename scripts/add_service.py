@@ -10,8 +10,7 @@ def get_mysql_service():
     ports:
       - \"8085:3306\"
     volumes:
-      - mysql-data:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - emdeck-mysql:/var/lib/mysql
     networks:
       - emdeck-network
 """
@@ -42,7 +41,7 @@ def get_redis_service():
     restart: always
     container_name: redis
     volumes:
-      - redis-data:/data
+      - emdeck-redis:/data
     networks:
       - emdeck-network
 """
@@ -92,7 +91,7 @@ def get_portainer_service():
       - ADMIN_PASSWORD=\"{os.environ.get('PORTAINER_ADMIN_PASSWORD', '')}\"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer-data:/data
+      - emdeck-portainer:/data
     networks:
       - emdeck-network
 """
