@@ -12,6 +12,7 @@ WORKDIR /opt/DDE
 # Install required system dependencies
 RUN apt update && apt install -y \
     build-essential \
+    git \
     libmariadb-dev-compat libmariadb-dev \
     default-mysql-client default-libmysqlclient-dev pv
 
@@ -20,6 +21,7 @@ COPY tmp/Gemfile /opt/DDE/Gemfile
 RUN bundle install
 
 # Copy the application code from the tmp folder
+COPY ./tmp/.git /opt/EMR-API/.git
 COPY ./tmp/app /opt/DDE/app
 COPY ./tmp/bin /opt/DDE/bin
 COPY ./tmp/config /opt/DDE/config

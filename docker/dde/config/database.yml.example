@@ -17,7 +17,7 @@ default: &default
   collation: utf8_unicode_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password: MYSQL_ROOT_PASSWORD
+  password: "MYSQL_ROOT_PASSWORD"
   # socket: /var/run/mysqld/mysqld.sock
   idle_timeout: 1
 
