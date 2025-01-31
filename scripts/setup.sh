@@ -63,6 +63,100 @@ if ! all_examples_have_target_files; then
     exit 1
 fi
 
+# we need to ensure we have all the variables set in the config file
+if [ -z "$ENABLE_MYSQL" ]; then
+    echo -e "${RED}Error:${NC} ENABLE_MYSQL is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$ENABLE_REDIS" ]; then
+    echo -e "${RED}Error:${NC} ENABLE_REDIS is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$ENABLE_PORTAINER" ]; then
+    echo -e "${RED}Error:${NC} ENABLE_PORTAINER is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$ENABLE_EMR" ]; then
+    echo -e "${RED}Error:${NC} ENABLE_EMR is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$ENABLE_DDE" ]; then
+    echo -e "${RED}Error:${NC} ENABLE_DDE is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$ENABLE_EMC" ]; then
+    echo -e "${RED}Error:${NC} ENABLE_EMC is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$ENABLE_CORE" ]; then
+    echo -e "${RED}Error:${NC} ENABLE_CORE is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+# EMR_API_REPO, DDE_REPO, EMC_REPO, CORE_REPO and they can choose between HTTPS and SSH versions
+if [ -z "$EMR_API_REPO" ]; then
+    echo -e "${RED}Error:${NC} EMR_API_REPO is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$DDE_REPO" ]; then
+    echo -e "${RED}Error:${NC} DDE_REPO is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$EMC_REPO" ]; then
+    echo -e "${RED}Error:${NC} EMC_REPO is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$CORE_REPO" ]; then
+    echo -e "${RED}Error:${NC} CORE_REPO is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+# we need to ensure that the repositories are either HTTPS or SSH
+if [[ "$EMR_API_REPO" != "https://"* ]] && [[ "$EMR_API_REPO" != "git@"* ]]; then
+    echo -e "${RED}Error:${NC} EMR_API_REPO must be either HTTPS or SSH."
+    exit 1
+fi
+
+if [[ "$DDE_REPO" != "https://"* ]] && [[ "$DDE_REPO" != "git@"* ]]; then
+    echo -e "${RED}Error:${NC} DDE_REPO must be either HTTPS or SSH."
+    exit 1
+fi
+
+if [[ "$EMC_REPO" != "https://"* ]] && [[ "$EMC_REPO" != "git@"* ]]; then
+    echo -e "${RED}Error:${NC} EMC_REPO must be either HTTPS or SSH."
+    exit 1
+fi
+
+if [[ "$CORE_REPO" != "https://"* ]] && [[ "$CORE_REPO" != "git@"* ]]; then
+    echo -e "${RED}Error:${NC} CORE_REPO must be either HTTPS or SSH."
+    exit 1
+fi
+
+# RAILS_MAX_THREADS, PORTAINER_ADMIN_USERNAME, PORTAINER_ADMIN_PASSWORD
+if [ -z "$RAILS_MAX_THREADS" ]; then
+    echo -e "${RED}Error:${NC} RAILS_MAX_THREADS is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$PORTAINER_ADMIN_USERNAME" ]; then
+    echo -e "${RED}Error:${NC} PORTAINER_ADMIN_USERNAME is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
+if [ -z "$PORTAINER_ADMIN_PASSWORD" ]; then
+    echo -e "${RED}Error:${NC} PORTAINER_ADMIN_PASSWORD is not set in ${CYAN}config/emdeck.conf${NC}."
+    exit 1
+fi
+
 # we need to replace all files in docker folder that have the MYSQL_ROOT_PASSWORD placeholder with the actual password
 # we should void .example files
 find ./docker -type f -not -name "*.example" -exec sed -i '' "s/MYSQL_ROOT_PASSWORD/$MYSQL_ROOT_PASSWORD/g" {} +
