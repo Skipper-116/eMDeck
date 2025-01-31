@@ -10,7 +10,7 @@ WORKDIR /opt/CORE
 COPY ./tmp/ /usr/share/nginx/html
 
 # Copy configuration files (excluding *.example files)
-COPY ./config/ /opt/CORE
+COPY ./tmp/config/ /opt/CORE
 
 # Expose the Nginx port
 EXPOSE 80
