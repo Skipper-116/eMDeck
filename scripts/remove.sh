@@ -6,8 +6,9 @@ YELLOW='\033[1;33m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# prompt user to confirm the removal of all configurations, temp folders, docker containers and images
-echo -e "${YELLOW}Warning:${NC} This will remove all configurations, temp folders, docker containers and images. Do you want to continue? (y/n)"
+# prompt user to confirm the immediate removal of all configurations, temp folders, docker containers and images
+echo -e "${CYAN}!!! WARNING !!!${NC}"
+echo -e "Remove all configs, temp folders, Docker containers and images? (${GREEN}y = proceed${NC}, ${RED}any other key = abort${NC})"
 read -r response
 
 if [ "$response" != "y" ]; then
@@ -31,11 +32,23 @@ echo -e "${YELLOW}Removing temp folders...${NC}"
 # we need to test whether we need to use sudo or not with docker
 echo -e "${YELLOW}Removing Docker containers and images...${NC}"
 if docker ps &>/dev/null; then
-    docker rm -vf $(docker ps -aq)
-    docker rmi -f $(docker images -aq)
+    containers=$(docker ps -aq)
+    images=$(docker images -aq)
+    if [ -n "$containers" ]; then
+        docker rm -vf $containers
+    fi
+    if [ -n "$images" ]; then
+        docker rmi -f $images
+    fi
 else
-    sudo docker rm -vf $(sudo docker ps -aq)
-    sudo docker rmi -f $(sudo docker images -aq)
+    containers=$(sudo docker ps -aq)
+    images=$(sudo docker images -aq)
+    if [ -n "$containers" ]; then
+        sudo docker rm -vf $containers
+    fi
+    if [ -n "$images" ]; then
+        sudo docker rmi -f $images
+    fi
 fi
 
 echo -e "${GREEN}Success:${NC} All Configurations, Temp Folders, Docker containers and images have been removed."

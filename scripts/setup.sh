@@ -167,17 +167,11 @@ else
     find ./docker -type f -not -name "*.example" -exec sed -i "s/MYSQL_ROOT_PASSWORD/$MYSQL_ROOT_PASSWORD/g" {} +
 fi
 
-# lets delete the existing services from the docker-compose.yml
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS version
-    sed -i '' '/services:/q' ./docker/docker-compose.yml
-else
-    # Ubuntu (and other Linux distributions) version
-    sed -i '/services:/q' ./docker/docker-compose.yml
-fi
+# we should delete ./docker/docker-compose.yml and recreate it
+rm -f ./docker/docker-compose.yml
+touch ./docker/docker-compose.yml
 
-# Add the services to the docker-compose.yml
-echo "" >>./docker/docker-compose.yml
+echo "version: '3.8'" >>./docker/docker-compose.yml
 echo "services:" >>./docker/docker-compose.yml
 
 # Toggle services based on the configuration
