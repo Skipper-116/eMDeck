@@ -69,7 +69,10 @@ class Deployment:
             ('core', self.config.get("DEFAULT", "CORE_REPO"), "quarterly"),
         ]
         for service, repo, tag_format in repos:
-            self.clone_or_update_repo(service, repo, tag_format)
+            if os.environ.get(f"{service.upper()}_ENABLED", "false").lower() == "true":
+                self.clone_or_update_repo(service, repo, tag_format)
+            else:
+                print(f"Skipping {service} repository (disabled in configuration)")
 
     def deploy(self):
         """
@@ -78,12 +81,15 @@ class Deployment:
         - Copies necessary configurations.
         - Builds and starts the Docker Compose services.
         """
-        print("Starting deployment...")
-        self.clone_repos()
         try:
+            print("Starting deployment...")
+            self.clone_repos()
             print("Building and starting Docker Compose services...")
             subprocess.run(["docker-compose", "-f", "docker/docker-compose.yml", "up", "-d"], check=True)
             print("Deployment completed successfully!")
         except subprocess.CalledProcessError as e:
             print(f"Error during deployment: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            exit(1)
 
