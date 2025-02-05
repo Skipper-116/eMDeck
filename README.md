@@ -6,7 +6,7 @@
 
 1. **Highly Configurable Deployment**:
 
-   - Manage services (e.g., EMR, DDE, Emc) via a centralized `config/emdec.conf` file.
+   - Manage services (e.g., EMR, DDE, EMC, HIS CORE, MySQL, Redis, Portainer) via a centralized `config/emdeck.conf` file.
    - Enable or disable specific services during deployment.
 
 2. **Seamless Database Integration**:
@@ -37,6 +37,13 @@
 - Ubuntu 20.04 or later
 - Python 3.2 or later
 - Docker and Docker Compose
+- dotenv Python package
+
+To install Python Dotenv package run the following command:
+
+```bash
+pip3 install python-dotenv
+```
 
 ---
 
