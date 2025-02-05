@@ -8,7 +8,7 @@ NC='\033[0m'
 
 # Start the app
 ./scripts/setup.sh
-python main.py
+python3 main.py
 # pyton main.py without any exit errors means that the app has been configured out correctly
 echo -e "${GREEN}Success:${NC} The app has been configured successfully."
 # we need to start the docker-compose services which are in docker/docker-compose.yml

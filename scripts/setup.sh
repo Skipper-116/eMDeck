@@ -175,13 +175,13 @@ echo "version: '3.8'" >>./docker/docker-compose.yml
 echo "services:" >>./docker/docker-compose.yml
 
 # Toggle services based on the configuration
-python ./scripts/add_service.py "mysql" "$ENABLE_MYSQL"
-python ./scripts/add_service.py "redis" "$ENABLE_REDIS"
-python ./scripts/add_service.py "portainer" "$ENABLE_PORTAINER"
-python ./scripts/add_service.py "emr" "$ENABLE_EMR"
-python ./scripts/add_service.py "dde" "$ENABLE_DDE"
-python ./scripts/add_service.py "emc" "$ENABLE_EMC"
-python ./scripts/add_service.py "core" "$ENABLE_CORE"
+python3 ./scripts/add_service.py "mysql" "$ENABLE_MYSQL"
+python3 ./scripts/add_service.py "redis" "$ENABLE_REDIS"
+python3 ./scripts/add_service.py "portainer" "$ENABLE_PORTAINER"
+python3 ./scripts/add_service.py "emr" "$ENABLE_EMR"
+python3 ./scripts/add_service.py "dde" "$ENABLE_DDE"
+python3 ./scripts/add_service.py "emc" "$ENABLE_EMC"
+python3 ./scripts/add_service.py "core" "$ENABLE_CORE"
 
 # Lets complete the docker-compose.yml file
 cat <<EOF >>./docker/docker-compose.yml
@@ -193,5 +193,4 @@ volumes:
   emdeck-redis:
   emdeck-portainer:
 EOF
-echo -e "${GREEN}Success:${NC} Configuration looks good."
-exit 0
+echo -e "${GREEN}Success Configuration checks look good.${NC}"

@@ -1,22 +1,17 @@
 import os
 import subprocess
-from configparser import ConfigParser
+from dotenv import load_dotenv
 
 class Deployment:
     def __init__(self):
-        self.config = self.load_config()
-
-    def load_config(self):
-        config = ConfigParser()
-        config.read("./config/emdeck.conf")
-        config.read("./config/version.conf")
-        return config
-
-    def config_to_env(self):
-        """Sets the configuration values as environment variables."""
-        for key, value in self.config.items("DEFAULT"):
-            os.environ[key.upper()] = value
-        print("Configuration loaded successfully!")
+        self.load_environment()
+    
+    def load_environment(self):
+        """Loads the environment variables from the configuration files."""
+        emdeck_path = os.path.join(os.getcwd(), "config/emdeck.conf")
+        version_path = os.path.join(os.getcwd(), "config/version.conf")
+        load_dotenv(emdeck_path)
+        load_dotenv(version_path)
 
     def ensure_tmp_folder(self, service_path):
         """Ensures the tmp folder exists in the service path."""
@@ -50,7 +45,7 @@ class Deployment:
         """Clones the repository if it doesn't exist, otherwise fetches and checks out the latest tag."""
         service_path = f"docker/{service}"
         tmp_path = self.ensure_tmp_folder(service_path)
-        latest_tag = self.config.get("DEFAULT", f"{service.upper()}_TAG")
+        latest_tag = os.environ.get(f"{service.upper()}_TAG")
 
         if os.path.exists(service_path + "/tmp/.git"):
             print(f"Repository for {service} already exists. Checking the current tag...")
@@ -63,13 +58,13 @@ class Deployment:
     def clone_repos(self):
         """Clones or updates repositories based on the configuration."""
         repos = [
-            ("emr", self.config.get("DEFAULT", "EMR_API_REPO"), "semantic"),
-            ("dde", self.config.get("DEFAULT", "DDE_REPO"), "semantic"),
-            ("emc", self.config.get("DEFAULT", "EMC_REPO"), "quarterly"),
-            ('core', self.config.get("DEFAULT", "CORE_REPO"), "quarterly"),
+            ("emr", os.environ.get("EMR_API_REPO"), "semantic"),
+            ("dde", os.environ.get("DDE_REPO"), "semantic"),
+            ("emc", os.environ.get("EMC_REPO"), "quarterly"),
+            ('core', os.environ.get("CORE_REPO"), "quarterly"),
         ]
         for service, repo, tag_format in repos:
-            if os.environ.get(f"{service.upper()}_ENABLED", "false").lower() == "true":
+            if os.environ.get(f"ENABLE_{service.upper()}").lower() == "true":
                 self.clone_or_update_repo(service, repo, tag_format)
             else:
                 print(f"Skipping {service} repository (disabled in configuration)")
