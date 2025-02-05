@@ -1,4 +1,3 @@
-[DEFAULT]
 ENABLE_EMR=true
 ENABLE_DDE=true
 ENABLE_EMC=true
