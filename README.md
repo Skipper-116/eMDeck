@@ -120,6 +120,7 @@ eMDeck/
 ├── scripts/
 │   ├── backup.sh
 │   ├── restore.sh
+│   ├── remove.sh
 │   ├── migrate.sh
 ├── .gitignore
 ├── README.md
