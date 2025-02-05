@@ -96,8 +96,8 @@ Place custom configuration files (e.g., `database.yml`, `ait.yml`) in the respec
 ```
 eMDeck/
 ├── config/
-│   ├── emdeck.conf
-├── deployment.py
+│   ├── emdeck.conf.example
+│   ├── version.conf
 ├── docker/
 │   ├── docker-compose.yml
 │   ├── mysql/
@@ -118,12 +118,19 @@ eMDeck/
 │   ├── emc/
 │   │   ├── Dockerfile
 ├── scripts/
+│   ├── add_service.py
 │   ├── backup.sh
+│   ├── clean.sh
+│   ├── migrate.sh
 │   ├── restore.sh
 │   ├── remove.sh
-│   ├── migrate.sh
+│   ├── setup.sh
+│   ├── start.sh
+├── deployment.py
 ├── .gitignore
+├── main.py
 ├── README.md
+├── SECURITY.md
 ```
 
 ---
