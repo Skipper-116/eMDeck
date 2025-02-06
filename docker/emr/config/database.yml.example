@@ -1,7 +1,7 @@
 # Mysql configurations
 default: &default
   adapter: mysql2
-  host: mysql
+  host: emdeck_mysql
   port: 3306
   encoding: utf8
   collation: utf8_unicode_ci

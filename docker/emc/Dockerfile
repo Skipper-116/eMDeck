@@ -9,7 +9,7 @@ WORKDIR /opt/EMC
 COPY ./tmp/ .
 
 # Copy configuration files (excluding *.example files)
-COPY ./config/ /opt/EMC/config/
+# COPY ./config/ /opt/EMC/config/
 
 # Install dependencies and build the application
 RUN npm install --legacy-peer-deps

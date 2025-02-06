@@ -7,4 +7,4 @@
   - sync
 
 :redis:
-  :url: 'redis://<%= ENV.fetch("REDIS_HOST", "redis") %>:6379/%{redis_db}'
+  :url: 'redis://<%= ENV.fetch("REDIS_HOST", "emdeck_redis") %>:6379/%{redis_db}'
