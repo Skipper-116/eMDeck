@@ -39,12 +39,6 @@
 - Docker and Docker Compose
 - dotenv Python package
 
-To install Python Dotenv package run the following command:
-
-```bash
-pip3 install python-dotenv
-```
-
 ---
 
 ## Setup Instructions
@@ -59,7 +53,25 @@ cd emdeck
 
 ### 2. Deploy the System
 
-Run the Python deployment script:
+Setup the python environment by running the following command:
+
+```bash
+python3 -m venv emdeck_venv
+```
+
+Activate the python environment by running the following command:
+
+```bash
+source emdeck_venv/bin/activate
+```
+
+Install the required python packages by running the following command:
+
+```bash
+pip3 install -r requirements.txt
+```
+
+Run the deployment script:
 
 ```bash
 ./scripts/start.sh
@@ -130,6 +142,7 @@ eMDeck/
 ├── .gitignore
 ├── main.py
 ├── README.md
+├── requirements.txt
 ├── SECURITY.md
 ```
 
