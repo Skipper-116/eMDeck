@@ -2,7 +2,7 @@ import os
 import sys
 
 def get_mysql_service():
-    return f"""  mysql:
+    return f"""  emdeck_mysql:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: \"{os.environ.get('MYSQL_ROOT_PASSWORD', '')}\"
@@ -21,20 +21,21 @@ def get_emr_service():
       context: ./emr
     container_name: emr-api
     environment:
-      DB_HOST: mysql
+      DB_HOST: emdeck_mysql
       DB_PORT: 3306
       MYSQL_ROOT_PASSWORD: \"{os.environ.get('MYSQL_ROOT_PASSWORD', '')}\"
-      RAILS_MAX_THREADS: 5
+      RAILS_MAX_THREADS: {os.environ.get('RAILS_MAX_THREADS', 5)}
+      RAILS_MIN_THREADS: {os.environ.get('RAILS_MIN_THREADS', 2)}
     ports:
       - \"8081:3000\"
     depends_on:
-      - mysql
+      - emdeck_mysql
     networks:
       - emdeck-network
 """
 
 def get_redis_service():
-    return """  redis:
+    return """  emdeck_redis:
     image: redis:7.0
     ports:
       - \"8084:6379\"
@@ -52,16 +53,17 @@ def get_dde_service():
       context: ./dde
     container_name: dde-api
     environment:
-      DB_HOST: mysql
+      DB_HOST: emdeck_mysql
       DB_PORT: 3306
       MYSQL_ROOT_PASSWORD: \"{os.environ.get('MYSQL_ROOT_PASSWORD', '')}\"
-      RAILS_MAX_THREADS: 5
+      RAILS_MAX_THREADS: {os.environ.get('RAILS_MAX_THREADS', 5)}
+      RAILS_MIN_THREADS: {os.environ.get('RAILS_MIN_THREADS', 2)}
       REDIS_HOST: redis
       REDIS_PORT: 6379
     ports:
       - \"8082:3000\"
     depends_on:
-      - mysql
+      - emdeck_mysql
     networks:
       - emdeck-network
 """
@@ -80,7 +82,7 @@ def get_emc_service():
 """
 
 def get_portainer_service():
-    return f"""  portainer:
+    return f"""  emdeck_portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
     restart: always
