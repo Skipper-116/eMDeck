@@ -11,7 +11,7 @@ end
 # Save the Redis DB choice to sidekiq.yml
 def store_db_choice(db)
   config = load_sidekiq_config
-  config[:redis][:url] ||= "redis://localhost:6379/#{db}"
+  config[:redis][:url] ||= "redis://emdeck_redis:6379/#{db}"
   
   File.open(Rails.root.join('config', 'sidekiq.yml'), 'w') do |f|
     f.write(config.to_yaml)
@@ -21,7 +21,7 @@ end
 # Read Redis DB choice from sidekiq.yml
 def read_db_choice
   config = load_sidekiq_config
-  config[:redis][:url].match(/redis:\/\/localhost:6379\/(\d+)/)[1].to_i
+  config[:redis][:url].match(/redis:\/\/emdeck_redis:6379\/(\d+)/)[1].to_i
 rescue
   nil
 end
@@ -90,7 +90,7 @@ DDE4_SYNC_CONFIGS = cron_config('*/5 * * * *', 'SyncJob','sync','Syncs data demo
 DASHBOARD_SOCKET_CONFIGS = cron_config('0 0 * * *','DashboardSocketDataJob','default', 'Refreshes dashboard details')
 
 
-redis = Redis.new(url: 'redis://localhost:6379/0')
+redis = Redis.new(url: 'redis://emdeck_redis:6379/0')
 free_db = read_db_choice || find_free_redis_db(redis)
 
 # Store the selected DB back in the sidekiq.yml file
@@ -99,11 +99,11 @@ store_db_choice(free_db)
 store_master_schedule_config
 
 Sidekiq.configure_server do |config|
-  config.redis = { url: "redis://localhost:6379/#{free_db}" }
+  config.redis = { url: "redis://emdeck_redis:6379/#{free_db}" }
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: "redis://localhost:6379/#{free_db}" }
+  config.redis = { url: "redis://emdeck_redis:6379/#{free_db}" }
 end
 
 Rails.application.configure do
